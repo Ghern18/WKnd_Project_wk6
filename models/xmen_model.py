@@ -1,0 +1,1 @@
+from .xmen_model import XmenModel, PowerModel
