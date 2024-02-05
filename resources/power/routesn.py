@@ -35,25 +35,25 @@ class Power(MethodView):
         power = PowerModel.query.get(power_id)
         if power and power.student_id == get_jwt_identity():
             power.delete()
-            return {"message": "Spell Redacted"}, 202
+            return {"message": "Powers has a weekness"}, 202
         return {'message':"Mutant is Cured."}, 400
 
 
 @bp.route('/')
-class SpellList(MethodView):
+class PowerList(MethodView):
 
 
-    @bp.response(200, SpellSchema(many = True))
+    @bp.response(200, PowerSchema(many = True))
     def get(self):
-        return SpellModel.query.all()
+        return PowerModel.query.all()
     
-    @bp.arguments(SpellSchema) 
+    @bp.arguments(PowerSchema) 
     def post(self, spell_data):
         try:
-            spell = SpellModel()
-            spell.student_id = get_jwt_identity() 
-            spell.body = spell_data['body']
-            spell.commit()
-            return { 'message': "Spell Casted" }, 201
+            power = PowerModel()
+            power.student_id = get_jwt_identity() 
+            power.body = power_data['body']
+            power.commit()
+            return { 'message': "power has a weakness" }, 201
         except:
-            return { 'message': "Student in need of Professor to Cast Spell"}, 401   
+            return { 'message': "Mutant is Cured."}, 401   
